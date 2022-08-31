@@ -17,9 +17,15 @@ function Functions.TablePrint (tbl, indent)
     end
   end
 
-function Functions.Exclusive(ctrls, n)
-    for i , v in pairs(ctrls) do
-        v.Boolean = n == i
+function Functions.MakeExclusive(ArrayOfCtrls)
+    for i , v in pairs(ArrayOfCtrls) do
+      local oldEH = v.EventHandler or function() end
+      v.EventHandler = function()
+        for x,y in pairs(ArrayOfCtrls) do
+          y.Boolean = x == i
+        end
+        oldEH()
+      end
     end
 end
 
