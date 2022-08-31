@@ -17,6 +17,8 @@ function Functions.TablePrint (tbl, indent)
     end
   end
 
+-- makes an array of controls exclusive, so when one turns on the others turn off.
+-- does not overwrite existing eventHandlers, but adds to them
 function Functions.MakeExclusive(ArrayOfCtrls)
     for i , v in pairs(ArrayOfCtrls) do
       local oldEH = v.EventHandler or function() end
@@ -29,6 +31,7 @@ function Functions.MakeExclusive(ArrayOfCtrls)
     end
 end
 
+-- will return the index of a given value if found in table t
 function Functions.GetIndex(t,value)
     for i , v in pairs(t) do
         if v == value then return i end
