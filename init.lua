@@ -38,4 +38,10 @@ function Functions.GetIndex(t,value)
     end
 end
 
+function Functions.Write(socket, data, EOL)
+  print('TX:', data)
+  EOL = EOL or ""
+  socket:Write(data..EOL)
+end
+
 return Functions
