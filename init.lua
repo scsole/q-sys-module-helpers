@@ -46,7 +46,7 @@ end
 
 ----------------------------------------------------functions for finding available NICs on a Core and returning their IP address---------------------------
 
-function Functions.setNicOptions() --this function looks through the Cores network interfaces - if a Core has a valid IP address then it will return that NIC as an option to be used in a dropdown list
+function Functions.SetNicOptions() --this function looks through the Cores network interfaces - if a Core has a valid IP address then it will return that NIC as an option to be used in a dropdown list
   local availablePort = {}
   for subtbl,item in pairs(Network.Interfaces()) do
     if subtbl then --checks valid IP of Cores NICs
@@ -56,7 +56,7 @@ function Functions.setNicOptions() --this function looks through the Cores netwo
   return availablePort
 end 
 
-function Functions.getIP(s) --returns the IP address of a selected Core interface. Example, if you select "LAN B" in your interface dropdown box - it will return you the IP of that NIC
+function Functions.GetIP(s) --returns the IP address of a selected Core interface. Example, if you select "LAN B" in your interface dropdown box - it will return you the IP of that NIC
   for index,value in pairs(Network.Interfaces()) do
     if value.Interface == s then 
       return value.Address
