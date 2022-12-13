@@ -44,9 +44,9 @@ function Functions.Write(socket, data, EOL)
   socket:Write(data..EOL)
 end
 
-----------------------------------------------------functions for finding available NICs on a Core and returning their IP address---------------------------
+-----------functions for finding available NICs on a Core and returning their IP address---------------------------
 
-function Functions.SetNicOptions() --this function looks through the Cores network interfaces - if a Core has a valid IP address then it will return that NIC as an option to be used in a dropdown list
+function Functions.GetNicOptions() --this function looks through the Cores network interfaces - if a Core has a valid IP address then it will return that NIC as an option to be used in a dropdown list
   local availablePort = {}
   for subtbl,item in pairs(Network.Interfaces()) do
     if subtbl then --checks valid IP of Cores NICs
@@ -63,5 +63,19 @@ function Functions.GetIP(s) --returns the IP address of a selected Core interfac
     end 
   end
 end 
+
+--------------------------functions to write a CSV file---------------------
+function Functions.AddCsvRow(filePath, data)
+  -- Open the CSV file in append mode
+  local file = io.open('media/'.. filePath, "a")
+
+  -- Convert the data table to a string and append it to the file
+  file:write(table.concat(data, ",") .. "\n")
+
+  -- Close the file
+  file:close()
+end
+
+--eg AddCsvRow('Audio/test.csv', {7,8,9,0})
 
 return Functions
