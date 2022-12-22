@@ -64,6 +64,16 @@ function Functions.GetIP(s) --returns the IP address of a selected Core interfac
   end
 end 
 
+-- provide a string and delimiter and the function will return a table with the split parts of the string.
+function Functions.SplitString(str, delimiter)
+  local t = {}
+  for word in string.gmatch(str, "[^" .. delimiter .. "]+") do
+    table.insert(t, word)
+  end
+  return t
+end
+
+
 --------------------------functions to write a CSV file---------------------
 function Functions.AddCsvRow(filePath, data)
   -- Open the CSV file in append mode
