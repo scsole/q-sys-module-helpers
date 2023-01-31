@@ -17,8 +17,8 @@ function Functions.TablePrint(tbl, indent)
   end
 end
 
--- makes an array of controls exclusive, so when one turns on the others turn off.
--- does not overwrite existing eventHandlers, but adds to them
+-- Makes an array of controls exclusive, so when one turns on the others turn off.
+-- Does not overwrite existing eventHandlers, but adds to them.
 function Functions.MakeExclusive(ArrayOfCtrls)
   for i, v in pairs(ArrayOfCtrls) do
     local oldEH = v.EventHandler or function() end
@@ -31,7 +31,7 @@ function Functions.MakeExclusive(ArrayOfCtrls)
   end
 end
 
--- will return the index of a given value if found in table t
+-- Return the index of a given value if found in table t
 function Functions.GetIndex(t, value)
   for i, v in pairs(t) do
     if v == value then return i end
@@ -46,7 +46,9 @@ end
 
 -----------functions for finding available NICs on a Core and returning their IP address---------------------------
 
-function Functions.GetNicOptions() --this function looks through the Cores network interfaces - if a Core has a valid IP address then it will return that NIC as an option to be used in a dropdown list
+-- Function to look through the Cores network interfaces - if a Core has a valid IP address then it will return that NIC
+-- as an option to be used in a dropdown list
+function Functions.GetNicOptions()
   local availablePort = {}
   for subtbl, item in pairs(Network.Interfaces()) do
     if subtbl then --checks valid IP of Cores NICs
@@ -56,7 +58,9 @@ function Functions.GetNicOptions() --this function looks through the Cores netwo
   return availablePort
 end
 
-function Functions.GetIP(s) --returns the IP address of a selected Core interface. Example, if you select "LAN B" in your interface dropdown box - it will return you the IP of that NIC
+-- Returns the IP address of a selected Core interface. Example, if you select "LAN B" in your interface dropdown box -
+-- it will return you the IP of that NIC
+function Functions.GetIP(s)
   for _, value in pairs(Network.Interfaces()) do
     if value.Interface == s then
       return value.Address
@@ -64,7 +68,7 @@ function Functions.GetIP(s) --returns the IP address of a selected Core interfac
   end
 end
 
--- provide a string and delimiter and the function will return a table with the split parts of the string.
+-- Provide a string and delimiter and the function will return a table with the split parts of the string.
 function Functions.SplitString(str, delimiter)
   local t = {}
   for word in string.gmatch(str, "[^" .. delimiter .. "]+") do
