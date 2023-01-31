@@ -1,11 +1,11 @@
-Functions = {}
+local Functions = {}
 
 -- Print contents of `tbl`, with indentation.
 -- `indent` sets the initial level of indentation.
 function Functions.TablePrint(tbl, indent)
   if not indent then indent = 0 end
   for k, v in pairs(tbl) do
-    formatting = string.rep("  ", indent) .. k .. ": "
+    local formatting = string.rep("  ", indent) .. k .. ": "
     if type(v) == "table" then
       print(formatting)
       Functions.TablePrint(v, indent + 1)
@@ -57,7 +57,7 @@ function Functions.GetNicOptions() --this function looks through the Cores netwo
 end
 
 function Functions.GetIP(s) --returns the IP address of a selected Core interface. Example, if you select "LAN B" in your interface dropdown box - it will return you the IP of that NIC
-  for index, value in pairs(Network.Interfaces()) do
+  for _, value in pairs(Network.Interfaces()) do
     if value.Interface == s then
       return value.Address
     end
@@ -76,7 +76,7 @@ end
 --------------------------functions to write a CSV file---------------------
 function Functions.AddCsvRow(filePath, data)
   -- Open the CSV file in append mode
-  local file = io.open('media/' .. filePath, "a")
+  local file = assert(io.open('media/' .. filePath, "a"))
 
   -- Convert the data table to a string and append it to the file
   file:write(table.concat(data, ",") .. "\n")
