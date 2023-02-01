@@ -6,4 +6,4 @@ Some useful functions that I find myself adding to all sorts of scripts.
 
 ## Credits
 
-Forked from [jmartinQSC/helpers](https://bitbucket.org/jmartinQSC/helpers/)
+A fork of [jmartinQSC/helpers](https://bitbucket.org/jmartinQSC/helpers/)
