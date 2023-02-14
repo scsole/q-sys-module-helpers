@@ -19,15 +19,22 @@ end
 
 -- Makes an array of controls exclusive, so when one turns on the others turn off.
 -- Does not overwrite existing eventHandlers, but adds to them.
-function Functions.MakeExclusive(ArrayOfCtrls)
-  for i, v in pairs(ArrayOfCtrls) do
+function Functions.MakeExclusive(arrayOfCtrls)
+  for i, v in pairs(arrayOfCtrls) do
     local oldEH = v.EventHandler or function() end
     v.EventHandler = function()
-      for x, y in pairs(ArrayOfCtrls) do
+      for x, y in pairs(arrayOfCtrls) do
         y.Boolean = x == i
       end
       oldEH()
     end
+  end
+end
+
+-- Exclusively turn on a control contained in a table
+function Functions.ExclusiveSet(ctrl, arrayOfCtrls)
+  for _, v in pairs(arrayOfCtrls) do
+    v.Boolean = ctrl == v
   end
 end
 
