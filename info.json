@@ -1,7 +1,7 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "LuaModule",
-  "author": "james.martin@qsc.com, jasper.murrell@qsc.com",
+  "author": "james.martin@qsc.com, jasper.murrell@qsc.com, sebastian.sole@strawberrysound.co.nz",
   "description": "Helpful Lua functions",
   "requiredVersion": "9.5"
 }
