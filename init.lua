@@ -21,7 +21,8 @@ end
 -- Does not overwrite existing eventHandlers, but adds to them.
 function Functions.MakeExclusive(arrayOfCtrls)
   for i, v in pairs(arrayOfCtrls) do
-    local oldEH = v.EventHandler or function() end
+    local oldEH = v.EventHandler or function()
+        end
     v.EventHandler = function()
       for x, y in pairs(arrayOfCtrls) do
         y.Boolean = x == i
@@ -36,6 +37,14 @@ function Functions.ExclusiveSet(ctrl, arrayOfCtrls)
   for _, v in pairs(arrayOfCtrls) do
     v.Boolean = ctrl == v
   end
+end
+
+-- Pulse a control on and off
+function Functions.Pulse(ctrl, period)
+  period = period or 0.01
+  Timer.CallAfter(function()
+    ctrl.Boolean = false
+  end, period)
 end
 
 -- Return the index of a given value if found in table t
