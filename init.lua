@@ -22,7 +22,7 @@ end
 function Functions.MakeExclusive(arrayOfCtrls)
   for i, v in pairs(arrayOfCtrls) do
     local oldEH = v.EventHandler or function()
-        end
+    end
     v.EventHandler = function()
       for x, y in pairs(arrayOfCtrls) do
         y.Boolean = x == i
@@ -67,7 +67,7 @@ end
 function Functions.GetNicOptions()
   local availablePort = {}
   for subtbl, item in pairs(Network.Interfaces()) do
-    if subtbl then --checks valid IP of Cores NICs
+    if subtbl then                                --checks valid IP of Cores NICs
       table.insert(availablePort, item.Interface) --inserts the interface into the table for using in a dropdown box
     end
   end
