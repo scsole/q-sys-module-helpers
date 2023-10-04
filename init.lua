@@ -31,7 +31,7 @@ function Functions.MakeExclusive(ctrls, allowDeselection)
             y.Boolean = x == key
           end
         else
-          for x, y in pairs(ctrls) do
+          for _, y in pairs(ctrls) do
             y.Boolean = false
           end
         end
