@@ -33,6 +33,13 @@ function Functions.MakeExclusive(ctrls)
   end
 end
 
+--- Print a formatted version of its variable number of arguments following the description given in its first argument.
+--- @param str string The string format specifier.
+--- @param ... any
+function Functions.PrintFormat(str, ...)
+  print(str:format(...))
+end
+
 --- Exclusively turn on a control contained in a table.
 --- @param ctrl table The control to turn on in the table.
 --- @param ctrls table The table containing controls which should be exclusively set.
@@ -62,10 +69,27 @@ function Functions.GetIndex(tbl, value)
   end
 end
 
+--- Write data to a socket and print the data to the debug console.
+---@param socket table The socket to write the data to.
+---@param data any The data to write.
+---@param EOL any? Optional data to use as the end of line termination.
 function Functions.Write(socket, data, EOL)
   print('TX:', data)
   EOL = EOL or ""
   socket:Write(data .. EOL)
+end
+
+--- Check if a component can be accessed from scripts.
+--- @param name string The Code Name of the component to check.
+--- @return boolean # True if the component name exists, else false.
+function Functions.CheckScriptAccess(name)
+  local components = Component.GetComponents()
+  for _, component in ipairs(components) do
+    if component["ID"] == name then
+      return true
+    end
+  end
+  return false
 end
 
 -----------functions for finding available NICs on a Core and returning their IP address---------------------------
