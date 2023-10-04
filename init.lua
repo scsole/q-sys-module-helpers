@@ -1,7 +1,7 @@
 local Functions = {}
 
--- Print contents of `tbl`, with indentation.
--- `indent` sets the initial level of indentation.
+---@param tbl table A table to print.
+---@param indent integer? Optional initial level of indentation.
 function Functions.TablePrint(tbl, indent)
   if not indent then indent = 0 end
   for k, v in pairs(tbl) do
@@ -17,29 +17,34 @@ function Functions.TablePrint(tbl, indent)
   end
 end
 
--- Makes an array of controls exclusive, so when one turns on the others turn off.
--- Does not overwrite existing eventHandlers, but adds to them.
-function Functions.MakeExclusive(arrayOfCtrls)
-  for i, v in pairs(arrayOfCtrls) do
+--- Make a table of controls exclusive, so when one turns on, the others turn off. This does not overwrite existing
+--- event handlers, but adds to them.
+--- @param ctrls table A table of controls to make exclusive.
+function Functions.MakeExclusive(ctrls)
+  for k, v in pairs(ctrls) do
     local oldEH = v.EventHandler or function()
     end
     v.EventHandler = function()
-      for x, y in pairs(arrayOfCtrls) do
-        y.Boolean = x == i
+      for x, y in pairs(ctrls) do
+        y.Boolean = x == k
       end
       oldEH()
     end
   end
 end
 
--- Exclusively turn on a control contained in a table
-function Functions.ExclusiveSet(ctrl, arrayOfCtrls)
-  for _, v in pairs(arrayOfCtrls) do
+--- Exclusively turn on a control contained in a table.
+--- @param ctrl table The control to turn on in the table.
+--- @param ctrls table The table containing controls which should be exclusively set.
+function Functions.ExclusiveSet(ctrl, ctrls)
+  for _, v in pairs(ctrls) do
     v.Boolean = ctrl == v
   end
 end
 
--- Pulse a control on and off
+--- Pulse a control.
+---@param ctrl table The control to pulse.
+---@param period number Optional period (s) which the control should remain high for. Defaults to 0.01s.
 function Functions.Pulse(ctrl, period)
   period = period or 0.01
   Timer.CallAfter(function()
@@ -47,9 +52,12 @@ function Functions.Pulse(ctrl, period)
   end, period)
 end
 
--- Return the index of a given value if found in table t
-function Functions.GetIndex(t, value)
-  for i, v in pairs(t) do
+---Return the index of a given value if found in table tbl.
+---@param tbl table The table to search for the control.
+---@param value any The value to search for.
+---@return any # The index of the value if found.
+function Functions.GetIndex(tbl, value)
+  for i, v in pairs(tbl) do
     if v == value then return i end
   end
 end
