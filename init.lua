@@ -20,15 +20,30 @@ end
 --- Make a table of controls exclusive, so when one turns on, the others turn off. This does not overwrite existing
 --- event handlers, but adds to them.
 --- @param ctrls table A table of controls to make exclusive.
-function Functions.MakeExclusive(ctrls)
-  for k, v in pairs(ctrls) do
-    local oldEH = v.EventHandler or function()
-    end
-    v.EventHandler = function()
-      for x, y in pairs(ctrls) do
-        y.Boolean = x == k
+--- @param allowDeselection boolean? Optionally allow a currently selected control to be deselected.
+function Functions.MakeExclusive(ctrls, allowDeselection)
+  for key, ctrl in pairs(ctrls) do
+    local oldEH = ctrl.EventHandler or function() end
+    if allowDeselection then
+      ctrl.EventHandler = function(self)
+        if self.Boolean then
+          for x, y in pairs(ctrls) do
+            y.Boolean = x == key
+          end
+        else
+          for x, y in pairs(ctrls) do
+            y.Boolean = false
+          end
+        end
+        oldEH()
       end
-      oldEH()
+    else
+      ctrl.EventHandler = function()
+        for x, y in pairs(ctrls) do
+          y.Boolean = x == key
+        end
+        oldEH()
+      end
     end
   end
 end
