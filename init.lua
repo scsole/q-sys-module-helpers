@@ -107,6 +107,20 @@ function Functions.CheckScriptAccess(name)
   return false
 end
 
+--- Return a list of accessible component IDs who's Type property matches type.
+---@param type string The type of Component
+---@return table # The list of accessible component IDs.
+function Functions.GetComponentIdsByType(type)
+  local list = {}
+  local components = Component.GetComponents()
+  for _, component in ipairs(components) do
+    if component["Type"] == type then
+      list[#list + 1] = component["ID"]
+    end
+  end
+  return list
+end
+
 -----------functions for finding available NICs on a Core and returning their IP address---------------------------
 
 -- Function to look through the Cores network interfaces - if a Core has a valid IP address then it will return that NIC
