@@ -137,6 +137,21 @@ function Functions.GetComponentIdsByType(type)
   return list
 end
 
+--- Print out all accessible component information.
+--- @param pattern string? Optional pattern for filtering results by the component's Name or ID
+function Functions.PrintComponents(pattern)
+  local components = Component.GetComponents()
+  for i, component in ipairs(components) do
+    if not pattern or string.find(component["Name"], pattern) or string.find(component["ID"], pattern) then
+      print("----------------")
+      print(i)
+      for k, v in pairs(component) do
+        print(k, v)
+      end
+    end
+  end
+end
+
 -----------functions for finding available NICs on a Core and returning their IP address---------------------------
 
 -- Function to look through the Cores network interfaces - if a Core has a valid IP address then it will return that NIC
