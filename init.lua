@@ -48,6 +48,22 @@ function Functions.MakeExclusive(ctrls, allowDeselection)
   end
 end
 
+--- Add another function to an existing event handler. If the control has no event handler defined, then the new
+--- function is simply set as the control's event handler.
+---@param ctrl table The control to add the event handler to.
+---@param eventHandler function The function to add to any existing event handler.
+function Functions.AddEventHandler(ctrl, eventHandler)
+  local oldEh = ctrl.EventHandler
+  if oldEh then
+    ctrl.EventHandler = function(self)
+      oldEh(self)
+      eventHandler(self)
+    end
+  else
+    ctrl.EventHandler = eventHandler
+  end
+end
+
 --- Print a formatted version of its variable number of arguments following the description given in its first argument.
 --- @param str string The string format specifier.
 --- @param ... any
