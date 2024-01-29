@@ -123,14 +123,14 @@ function Functions.CheckScriptAccess(name)
   return false
 end
 
---- Return a list of accessible component IDs who's Type property matches type.
----@param type string The type of Component
+--- Return a list of accessible component IDs who's Type property contains the pattern.
+---@param pattern string The pattern to look for in the component's Type
 ---@return table # The list of accessible component IDs.
-function Functions.GetComponentIdsByType(type)
+function Functions.GetComponentIdsByType(pattern)
   local list = {}
   local components = Component.GetComponents()
   for _, component in ipairs(components) do
-    if component["Type"] == type then
+    if string.find(component["Type"], pattern, 1, true) then
       list[#list + 1] = component["ID"]
     end
   end
