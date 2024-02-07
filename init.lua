@@ -152,6 +152,29 @@ function Functions.PrintComponents(pattern)
   end
 end
 
+--- Return true if the object is an array, else false.
+---@param ctrl any The control to check
+---@return boolean # True if the first element of an array exists in ctrl, else false
+function Functions.IsArray(ctrl)
+  if pcall(function() return ctrl[1] end) then
+    return true
+  else
+    return false
+  end
+end
+
+--- Return an array of controls. If the control is an array, it is simply returned. If the control is not an array, it
+--- is wrapped inside a 1 element array which is then returned.
+--- @param control table The control to parse
+--- @return table # An array of control(s)
+function Functions.CreateControlArray(control)
+  if Functions.IsArray(control) then
+    return control
+  else
+    return { control }
+  end
+end
+
 -----------functions for finding available NICs on a Core and returning their IP address---------------------------
 
 -- Function to look through the Cores network interfaces - if a Core has a valid IP address then it will return that NIC
