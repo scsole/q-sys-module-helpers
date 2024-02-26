@@ -189,6 +189,17 @@ function Functions.CreateControlArray(control)
   end
 end
 
+--- Concatenate two tables together. This assumes the tables can be indexed by an incremented integer.
+---@param t1 table The first table
+---@param t2 any The second table to append to the first
+---@return table # The t1 with t2 added to the end
+function Functions.TableConcat(t1, t2)
+  for i = 1, #t2 do
+    t1[#t1 + 1] = t2[i]
+  end
+  return t1
+end
+
 -----------functions for finding available NICs on a Core and returning their IP address---------------------------
 
 -- Function to look through the Cores network interfaces - if a Core has a valid IP address then it will return that NIC
