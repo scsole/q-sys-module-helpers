@@ -137,6 +137,20 @@ function Functions.GetComponentIdsByType(pattern)
   return list
 end
 
+--- Return a list of accessible component IDs who's Name property contains the pattern.
+---@param pattern string The pattern to look for in the component's Name
+---@return table # The list of accessible component IDs.
+function Functions.GetComponentIdsByName(pattern)
+  local list = {}
+  local components = Component.GetComponents()
+  for _, component in ipairs(components) do
+    if string.find(component["Name"], pattern) then
+      list[#list + 1] = component["ID"]
+    end
+  end
+  return list
+end
+
 --- Print out all accessible component information.
 --- @param pattern string? Optional pattern for filtering results by the component's Name or ID
 function Functions.PrintComponents(pattern)
