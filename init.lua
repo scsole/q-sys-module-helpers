@@ -30,10 +30,6 @@ function Functions.MakeExclusive(ctrls, allowDeselection)
           for x, y in pairs(ctrls) do
             y.Boolean = x == key
           end
-        else
-          for _, y in pairs(ctrls) do
-            y.Boolean = false
-          end
         end
         oldEH()
       end
